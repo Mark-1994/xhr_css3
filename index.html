@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>xhr</title>
+    <style>
+        .wrap {
+            width: 400px;
+            height: 600px;
+            border: 1px solid red;
+            margin: 10px auto;
+            position: relative;
+        }
+        
+        .xhr_hair_1,
+        .xhr_hair_2 {
+            width: 130px;
+            height: 100px;
+            border-top: 10px solid #000;
+            border-radius: 50%;
+            position: absolute;
+            left: 100px;
+            transform: rotate(40deg);
+            animation: hair 3s ease-in infinite;
+        }
+        
+        .xhr_hair_1 {
+            top: 80px;
+        }
+        
+        .xhr_hair_2 {
+            top: 70px;
+        }
+        
+        .xhr_body {
+            width: 250px;
+            height: 400px;
+            background-color: yellow;
+            left: 50%;
+            top: 50%;
+            position: relative;
+            transform: translate(-50%, -50%);
+            border-radius: 120px;
+            border: 5px solid #000;
+            overflow: hidden;
+        }
+        
+        .xhr_eyes {
+            position: absolute;
+            top: 60px;
+            left: 25px;
+        }
+        
+        .xhr_eyes_l,
+        .xhr_eyes_r {
+            width: 90px;
+            height: 90px;
+            background-color: white;
+            border-radius: 50%;
+            border: 5px solid #000;
+            float: left;
+        }
+        
+        .xhr_eyes_l::after,
+        .xhr_eyes_r::after {
+            content: '';
+            width: 30px;
+            height: 20px;
+            background-color: #000;
+            position: absolute;
+            top: 30px;
+        }
+        
+        .xhr_eyes_l::after {
+            left: -25px;
+            transform: rotate(20deg);
+        }
+        
+        .xhr_eyes_r::after {
+            right: -25px;
+            transform: rotate(-20deg);
+        }
+        
+        .xhr_l_black,
+        .xhr_r_black {
+            width: 50px;
+            height: 50px;
+            background-color: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 25px;
+            animation: eyesBlank 5s ease-in infinite;
+        }
+        
+        .xhr_l_black {
+            left: 25px;
+        }
+        
+        .xhr_r_black {
+            left: 125px;
+        }
+        
+        .xhr_l_white,
+        .xhr_r_white {
+            background-color: #fff;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            position: absolute;
+            top: 40px;
+            animation: eyesBlank 5s ease-in infinite;
+        }
+        
+        .xhr_l_white {
+            left: 50px;
+        }
+        
+        .xhr_r_white {
+            left: 130px;
+        }
+        
+        .xhr_mouth {
+            width: 60px;
+            height: 35px;
+            background-color: #fff;
+            border: 5px solid #000;
+            position: absolute;
+            left: 89px;
+            top: 180px;
+            border-radius: 0 0 0 30px;
+            transform: rotate(-30deg)
+        }
+        
+        .xhr_mouth::after {
+            content: '';
+            position: absolute;
+            width: 81px;
+            height: 40px;
+            background-color: yellow;
+            transform: rotate(30deg);
+            top: -23px;
+            left: 1px;
+            border-bottom: 5px solid #000;
+        }
+        
+        .xhr_trousers {
+            position: absolute;
+            top: 250px;
+        }
+        
+        .xhr_trousers_t {
+            width: 150px;
+            height: 50px;
+            background-color: blue;
+            border: 5px solid #000;
+            border-bottom: none;
+            position: absolute;
+            left: 45px;
+            z-index: 999;
+        }
+        
+        .xhr_trousers_b {
+            width: 250px;
+            height: 100px;
+            background-color: blue;
+            position: absolute;
+            top: 50px;
+            border-top: 5px solid #000;
+        }
+        
+        .t_l_belt,
+        .t_r_belt {
+            width: 100px;
+            height: 20px;
+            background-color: blue;
+            border: 5px solid #000;
+            position: absolute;
+            top: -20px;
+        }
+        
+        .t_l_belt {
+            right: 120px;
+            transform: rotate(30deg);
+        }
+        
+        .t_r_belt {
+            left: 120px;
+            transform: rotate(-30deg);
+        }
+        
+        .t_l_belt::after,
+        .t_r_belt::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: #000;
+            position: absolute;
+            border-radius: 50%;
+            top: 5px;
+        }
+        
+        .t_l_belt::after {
+            left: 85px;
+        }
+        
+        .t_r_belt::after {
+            left: 5px;
+        }
+        
+        .xhr_hand_l,
+        .xhr_hand_r {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            border: 5px solid #000;
+            border-radius: 30px;
+            position: absolute;
+            top: 300px;
+            z-index: -1;
+        }
+        
+        .xhr_hand_l {
+            left: 50px;
+            transform: rotate(30deg);
+        }
+        
+        .xhr_hand_r {
+            right: 50px;
+            transform: rotate(-30deg);
+        }
+        
+        .xhr_hand_l::after,
+        .xhr_hand_r::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 10px;
+            background-color: #000;
+            border-radius: 10px;
+        }
+        
+        .xhr_hand_l::after {
+            transform: rotate(90deg);
+            top: 50px;
+            left: -3px;
+        }
+        
+        .xhr_hand_r::after {
+            transform: rotate(-90deg);
+            top: 51px;
+            left: 53px;
+        }
+        
+        .xhr_footer_l,
+        .xhr_footer_r {
+            width: 40px;
+            height: 60px;
+            background-color: #000;
+            position: absolute;
+            top: 500px;
+        }
+        
+        .xhr_footer_l {
+            left: 155px;
+        }
+        
+        .xhr_footer_r {
+            left: 205px;
+        }
+        
+        .xhr_footer_l::after,
+        .xhr_footer_r::after {
+            content: '';
+            width: 60px;
+            height: 40px;
+            background-color: #000;
+            position: absolute;
+            top: 20px;
+            border-radius: 20px;
+        }
+        
+        .xhr_footer_l::after {
+            left: -40px;
+        }
+        
+        .xhr_footer_r::after {
+            left: 20px;
+        }
+        /* 眼睛动画 */
+        
+        @keyframes eyesBlank {
+            20%,
+            50%,
+            60%,
+            100% {
+                transform: translate(0);
+            }
+            30%,
+            40% {
+                transform: translate(15px);
+            }
+            70%,
+            80% {
+                transform: translate(-15px);
+            }
+        }
+        
+        @keyframes eyesWhite {
+            20%,
+            50%,
+            60%,
+            100% {
+                transform: translate(0);
+            }
+            30%,
+            40% {
+                transform: translate(15px);
+            }
+            70%,
+            80% {
+                transform: translate(-15px);
+            }
+        }
+        
+        @keyframes hair {
+            10%,
+            20%,
+            50%,
+            60%,
+            100% {
+                transform: rotate(40deg);
+            }
+            30%,
+            40% {
+                transform: rotate(43deg);
+            }
+            70%,
+            80% {
+                transform: rotate(46deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+        容器设定及定位
+        添加小黄人的头发
+        添加小黄人的身体
+        添加小黄人的眼镜
+        添加小黄人的眼镜腿
+        添加小黄人的眼球
+        添加小黄人的嘴巴
+        添加小黄人的裤子
+        添加小黄人的手臂
+        添加小黄人的腿脚
+        给头发添加动画
+        给眼球添加动画
+    -->
+    <div class="wrap">
+        <!-- 头发 -->
+        <div class="xhr_hair">
+            <div class="xhr_hair_1"></div>
+            <div class="xhr_hair_2"></div>
+        </div>
+
+        <!-- 身体 -->
+        <div class="xhr_body">
+            <!-- 眼睛 -->
+            <div class="xhr_eyes">
+                <!-- 左眼睛 -->
+                <div class="xhr_eyes_l">
+                    <div class="xhr_l_black"></div>
+                    <div class="xhr_l_white"></div>
+                </div>
+                <!-- 右眼睛 -->
+                <div class="xhr_eyes_r">
+                    <div class="xhr_r_black"></div>
+                    <div class="xhr_r_white"></div>
+                </div>
+            </div>
+            <!-- 嘴巴 -->
+            <div class="xhr_mouth"></div>
+            <!-- 裤子 -->
+            <div class="xhr_trousers">
+                <!-- 裤子上部分 -->
+                <div class="xhr_trousers_t">
+                    <div class="t_l_belt"></div>
+                    <div class="t_r_belt"></div>
+                </div>
+                <!-- 裤子下部分 -->
+                <div class="xhr_trousers_b"></div>
+            </div>
+        </div>
+
+        <!-- 手臂 -->
+        <div class="xhr_hand">
+            <div class="xhr_hand_l"></div>
+            <div class="xhr_hand_r"></div>
+        </div>
+
+        <!-- 腿脚 -->
+        <div class="xhr_footer">
+            <div class="xhr_footer_l"></div>
+            <div class="xhr_footer_r"></div>
+        </div>
+    </div>
+</body>
+
+</html>
